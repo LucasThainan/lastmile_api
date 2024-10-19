@@ -4,6 +4,7 @@ GET http://localhost:3000/pedidos
 
 ### get pedido
 GET http://localhost:3000/pedidos/4de10bfb-11b9-4905-93a1-b9d38d9f6739
+Authorization: Bearer <token>
 
 ### create pedido
 POST http://localhost:3000/pedidos

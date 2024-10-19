@@ -7,7 +7,7 @@ export class AppService {
   constructor(
     @InjectDataSource()
     private dataSource: DataSource,
-  ) {}
+  ) { }
 
   async seed() {
     await this.dataSource.transaction(async (db) => { })
