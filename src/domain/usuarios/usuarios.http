@@ -1,0 +1,80 @@
+### get usuarios
+GET http://localhost:3000/usuarios
+?type=2
+&limit=10
+&offset=0
+Authorization: Bearer <token>
+
+### get usuario
+GET http://localhost:3000/usuarios/7cc120dc-271b-4d2c-bb0e-e9f3aeab72d3
+Authorization: Bearer <token>
+
+### login usuario
+POST http://localhost:3000/usuarios/login
+Content-Type: application/json
+
+{
+  "email": "jason.momoa@mail.com",
+  "password": "jason#123"
+}
+
+### refresh token
+POST http://localhost:3000/usuarios/refresh-token
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiYzQ2NTRlNDItNmE2OC00ZTEwLTkwNDgtNDcwNDYyZWYzYWQ4IiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJyZWZyZXNoIiwiaWF0IjoxNzI5Mzc0ODAxLCJleHAiOjE3MjkzNzg0MDF9.aRjx_yMTm8hB4yfhuBgEdfg4AlsW-ADqarEEqMs0Dyg"
+}
+
+### create usuario
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+  "name": "Jason Momoa",
+  "email": "jason.momoa@mail.com",
+  "password": "jason#123",
+  "document": "12345678910",
+  "phone": "77912345678",
+  "type": 1,
+  "status_usuario": 1
+}
+
+### update usuario
+PATCH http://localhost:3000/usuarios/7cc120dc-271b-4d2c-bb0e-e9f3aeab72d3
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "phone": "77912348765"
+}
+
+### create entregador
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+  "name": "Entregador Jones",
+  "email": "entregador.jones@mail.com",
+  "password": "jones#123",
+  "document": "12365471980",
+  "phone": "77987654321",
+  "type": 2,
+  "status_usuario": 1,
+  "entregador": {
+    "cnh": "12345678901",
+    "placa_veiculo": "ABC1234"
+  }
+}
+
+### update entregador
+PATCH http://localhost:3000/usuarios/25dc48b9-9e76-413c-a538-830b8651330c
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "entregador": {
+    "placa_veiculo": "DEF5678"
+  }
+}

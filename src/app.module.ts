@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { UsuariosModule } from './usuarios/usuarios.module'
-import { PedidosModule } from './pedidos/pedidos.module'
+import { CqrsModule } from '@nestjs/cqrs'
+import { Module } from '@nestjs/common'
 import { AuthModule } from './auth/auth.module'
+import { PedidosModule } from './domain/pedidos/pedidos.module'
+import { UsuariosModule } from './domain/usuarios/usuarios.module'
 
 @Module({
   imports: [
+    CqrsModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
@@ -26,8 +26,6 @@ import { AuthModule } from './auth/auth.module'
     UsuariosModule,
     PedidosModule,
     AuthModule
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,0 +1,43 @@
+### get pedidos
+GET http://localhost:3000/pedidos
+?cod_entregador=25dc48b9-9e76-413c-a538-830b8651330c
+Authorization: Bearer <token>
+
+### get pedido
+GET http://localhost:3000/pedidos/4de10bfb-11b9-4905-93a1-b9d38d9f6739
+Authorization: Bearer <token>
+
+### create pedido
+POST http://localhost:3000/pedidos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3MjkzODAzMzQsImV4cCI6MTcyOTM4MDM5NH0.3SiSPQ1_hIkDBHYFpryzn86IvyPZ_oVzXh9uDFRsv-E
+
+{
+  "name": "Big Macs",
+  "description": "Hambúrguer Big Mac do McDonalds do shopping Boulevard",
+  "address": "Av Cel. Salustiano de Souza",
+  "city": "Aracatu",
+  "state": "BA",
+  "number": "241",
+  "postal_code": "46130000",
+  "status_pedido": 1,
+  "cod_user": "2729a9df-b860-4602-a3d5-98ba0acfb14c"
+}
+
+### update pedido
+PATCH http://localhost:3000/pedidos/4de10bfb-11b9-4905-93a1-b9d38d9f6739
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "status_pedido": 1
+}
+
+### assign entregador
+PATCH http://localhost:3000/pedidos/assign-entregador/7c980ad3-9505-4578-9b62-c7265eb423b5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3MjkzODA5MDIsImV4cCI6MTcyOTM4MDk2Mn0.xFslxck09yqLwtovyK6uLHNJNxL4qdehE17EnAsIxPA
+
+{
+  "cod_entregador": "5f249a45-e1a2-4e52-aba3-62b21eaca02a"
+}
