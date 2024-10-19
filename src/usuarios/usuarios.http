@@ -1,0 +1,58 @@
+### get usuarios
+GET http://localhost:3000/usuarios
+?type=2
+&limit=10
+&offset=0
+
+### get usuario
+GET http://localhost:3000/usuarios/a6afc83d-b09e-4672-a95c-cd2030181a84
+
+### create usuario
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+  "name": "Jason Momoa",
+  "email": "jason.momoa@mail.com",
+  "password": "jason#123",
+  "document": "12345678910",
+  "phone": "77912345678",
+  "type": 1,
+  "status_usuario": 1
+}
+
+### update usuario
+PATCH http://localhost:3000/usuarios/1759d28b-f369-4676-8b7a-406fd702a02a
+Content-Type: application/json
+
+{
+  "phone": "77912348765"
+}
+
+### create entregador
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+  "name": "Entregador Jones",
+  "email": "entregador.jones@mail.com",
+  "password": "jones#123",
+  "document": "12365471980",
+  "phone": "77987654321",
+  "type": 2,
+  "status_usuario": 1,
+  "entregador": {
+    "cnh": "12345678901",
+    "placa_veiculo": "ABC1234"
+  }
+}
+
+### update entregador
+PATCH http://localhost:3000/usuarios/55052e0b-e93c-4cbc-90ee-0c25d7e78c66
+Content-Type: application/json
+
+{
+  "entregador": {
+    "placa_veiculo": "DEF5678"
+  }
+}
