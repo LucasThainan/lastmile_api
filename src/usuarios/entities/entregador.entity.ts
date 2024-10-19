@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm"
 
 @Entity('entregadores')
 export class Entregador {
@@ -6,6 +6,7 @@ export class Entregador {
   id_entregador: string
 
   @Column()
+  @Unique(['cnh'])
   cnh: string
 
   @Column()

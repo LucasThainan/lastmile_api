@@ -7,6 +7,8 @@ import { CreatePedidoDto } from './commands/create-pedido/create-pedido.dto'
 import { CreatePedidoCommand } from './commands/create-pedido/create-pedido.command'
 import { UpdatePedidoDto } from './commands/update-pedido/update-pedido.dto'
 import { UpdatePedidoCommand } from './commands/update-pedido/update-pedido.command'
+import { AssignEntregadorCommand } from './commands/assign-entregador/assign-entregador.command'
+import { AssignEntregadorDto } from './commands/assign-entregador/assign-entregador.dto'
 
 @Controller('pedidos')
 export class PedidosController {
@@ -42,6 +44,16 @@ export class PedidosController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updatePedidoDto: UpdatePedidoDto) {
     const command = plainToClass(UpdatePedidoCommand, { id_pedido: id, ...updatePedidoDto })
+    const affectedRows = await this.commandBus.execute(command)
+    if (!affectedRows) throw new NotFoundException('Pedido não encontrado')
+
+    const query = plainToClass(GetPedidoQuery, { id_pedido: id })
+    return this.queryBus.execute(query)
+  }
+
+  @Patch('assign-entregador/:id')
+  async assignEntregador(@Param('id') id: string, @Body() assignEntregadorDto: AssignEntregadorDto) {
+    const command = plainToClass(AssignEntregadorCommand, { id_pedido: id, ...assignEntregadorDto })
     const affectedRows = await this.commandBus.execute(command)
     if (!affectedRows) throw new NotFoundException('Pedido não encontrado')
 

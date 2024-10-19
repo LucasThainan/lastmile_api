@@ -5,7 +5,7 @@ GET http://localhost:3000/usuarios
 &offset=0
 
 ### get usuario
-GET http://localhost:3000/usuarios/a6afc83d-b09e-4672-a95c-cd2030181a84
+GET http://localhost:3000/usuarios/7cc120dc-271b-4d2c-bb0e-e9f3aeab72d3
 
 ### create usuario
 POST http://localhost:3000/usuarios
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### update usuario
-PATCH http://localhost:3000/usuarios/1759d28b-f369-4676-8b7a-406fd702a02a
+PATCH http://localhost:3000/usuarios/7cc120dc-271b-4d2c-bb0e-e9f3aeab72d3
 Content-Type: application/json
 
 {
@@ -48,7 +48,7 @@ Content-Type: application/json
 }
 
 ### update entregador
-PATCH http://localhost:3000/usuarios/55052e0b-e93c-4cbc-90ee-0c25d7e78c66
+PATCH http://localhost:3000/usuarios/25dc48b9-9e76-413c-a538-830b8651330c
 Content-Type: application/json
 
 {

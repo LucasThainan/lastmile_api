@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm"
 import { Entregador } from "src/usuarios/entities/entregador.entity"
 
 @Entity('usuarios')
@@ -10,12 +10,14 @@ export class Usuario {
   name: string
 
   @Column()
+  @Unique(['email'])
   email: string
 
   @Column()
   password: string
 
   @Column()
+  @Unique(['document'])
   document: string
 
   @Column()

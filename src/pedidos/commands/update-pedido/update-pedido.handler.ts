@@ -16,7 +16,6 @@ export class UpdatePedidoHandler implements ICommandHandler<UpdatePedidoCommand,
       const pedido = await db.findOne(Pedido, {
         where: { id_pedido: command.id_pedido }
       })
-
       if (!pedido) return 0
 
       command.updatedAt = new Date().toJSON()

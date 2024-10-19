@@ -26,7 +26,11 @@ export class CreateUsuarioHandler implements ICommandHandler<CreateUsuarioComman
         entregador
       })
 
-      await db.save(usuario)
+      try {
+        await db.save(usuario)
+      } catch (error) {
+        return ''
+      }
 
       return usuario.id_usuario
     })
