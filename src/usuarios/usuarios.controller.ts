@@ -5,11 +5,13 @@ import { GetUsuarioQuery } from './queries/get-usuario/get-usuario.query'
 import { GetUsuariosQuery } from './queries/get-usuarios/get-usuarios.query'
 import { CreateUsuarioDto } from './commands/create-usuario/create-usuario.dto'
 import { CreateUsuarioCommand } from './commands/create-usuario/create-usuario.command'
-import { LoginUsuarioDto } from './commands/login-usuario/login-usuario.dto'
-import { LoginUsuarioCommand } from './commands/login-usuario/login-usuario.command'
 import { UpdateUsuarioDto } from './commands/update-usuario/update-usuario.dto'
 import { UpdateUsuarioCommand } from './commands/update-usuario/update-usuario.command'
+import { LoginUsuarioDto } from './commands/login-usuario/login-usuario.dto'
+import { LoginUsuarioCommand } from './commands/login-usuario/login-usuario.command'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { RefreshTokenCommand } from './commands/refresh-token/refresh-token.command'
+import { RefreshTokenDto } from './commands/refresh-token/refresh-token.dto'
 
 @Controller('usuarios')
 export class UsuariosController {
@@ -30,6 +32,13 @@ export class UsuariosController {
   @HttpCode(200)
   async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
     const command = plainToClass(LoginUsuarioCommand, loginUsuarioDto)
+    return await this.commandBus.execute(command)
+  }
+
+  @Post('refresh-token')
+  @HttpCode(200)
+  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+    const command = plainToClass(RefreshTokenCommand, refreshTokenDto)
     return await this.commandBus.execute(command)
   }
 

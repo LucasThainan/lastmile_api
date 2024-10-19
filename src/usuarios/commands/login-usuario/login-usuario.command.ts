@@ -8,4 +8,5 @@ export class LoginUsuarioCommand {
 export class ReturnLoginUsuarioCommand {
   user_data: Omit<Usuario, 'password'>
   access_token: string
+  refresh_token: string
 }

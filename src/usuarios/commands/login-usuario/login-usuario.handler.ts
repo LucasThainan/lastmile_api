@@ -33,9 +33,21 @@ export class LoginUsuarioHandler implements ICommandHandler<LoginUsuarioCommand>
 
     const { password: _, ...result } = usuario
     const payload = { id_usuario: usuario.id_usuario, email: usuario.email }
-    return { 
+
+    const access_token = this.jwtService.sign(
+      { ...payload, type: 'access' },
+      { expiresIn: '60s' }
+    )
+
+    const refresh_token = this.jwtService.sign(
+      { ...payload, type: 'refresh' },
+      { expiresIn: '1h' }
+    )
+
+    return {
       user_data: result,
-      access_token: this.jwtService.sign(payload)
+      access_token,
+      refresh_token
     }
   }
 }

@@ -16,6 +16,14 @@ Content-Type: application/json
   "password": "jason#123"
 }
 
+### refresh token
+POST http://localhost:3000/usuarios/refresh-token
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiYzQ2NTRlNDItNmE2OC00ZTEwLTkwNDgtNDcwNDYyZWYzYWQ4IiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJyZWZyZXNoIiwiaWF0IjoxNzI5Mzc0ODAxLCJleHAiOjE3MjkzNzg0MDF9.aRjx_yMTm8hB4yfhuBgEdfg4AlsW-ADqarEEqMs0Dyg"
+}
+
 ### create usuario
 POST http://localhost:3000/usuarios
 Content-Type: application/json
