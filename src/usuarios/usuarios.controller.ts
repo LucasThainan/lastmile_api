@@ -11,8 +11,8 @@ import { UpdateUsuarioCommand } from './commands/update-usuario/update-usuario.c
 @Controller('usuarios')
 export class UsuariosController {
   constructor(
-    private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus
   ) { }
 
   @Post()

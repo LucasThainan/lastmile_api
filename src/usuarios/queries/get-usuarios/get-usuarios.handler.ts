@@ -10,7 +10,7 @@ export class GetUsuariosHandler implements IQueryHandler<GetUsuariosQuery, GetUs
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource
-  ) {}
+  ) { }
 
   async execute(query: GetUsuariosQuery): Promise<GetUsuariosDto[] | null> {
     const data = await this.dataSource.manager.find(Usuario, {

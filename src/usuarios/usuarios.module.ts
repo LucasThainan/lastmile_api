@@ -8,7 +8,7 @@ import { Usuario } from './entities/usuario.entity'
 import { Entregador } from './entities/entregador.entity'
 
 @Module({
-  imports: [CqrsModule ,TypeOrmModule.forFeature([Usuario, Entregador])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([Usuario, Entregador])],
   controllers: [UsuariosController],
   providers: [...QueryHandlers, ...CommandHandlers],
 })

@@ -1,0 +1,30 @@
+### get pedidos
+GET http://localhost:3000/pedidos
+?cod_entregador=bd0b8676-173e-447e-91bf-5a633d384f87
+
+### get pedido
+GET http://localhost:3000/pedidos/4f8555d1-3503-4a88-9135-aeb3ff017722
+
+### create pedido
+POST http://localhost:3000/pedidos
+Content-Type: application/json
+
+{
+  "name": "Big Mac",
+  "description": "Hambúrguer Big Mac do McDonalds do shopping Boulevard",
+  "address": "Av Cel. Salustiano de Souza",
+  "city": "Aracatu",
+  "state": "BA",
+  "number": "241",
+  "postal_code": "46130000",
+  "status_pedido": 1,
+  "cod_user": "1759d28b-f369-4676-8b7a-406fd702a02a"
+}
+
+### update usuario
+PATCH http://localhost:3000/pedidos/4f8555d1-3503-4a88-9135-aeb3ff017722
+Content-Type: application/json
+
+{
+  "cod_entregador": "bd0b8676-173e-447e-91bf-5a633d384f87"
+}
