@@ -33,6 +33,8 @@ export class CreateUsuarioHandler implements ICommandHandler<CreateUsuarioComman
 
       if (command.type == 2) {
         entregador = db.create(Entregador, command.entregador)
+      } else {
+        command.entregador = null
       }
 
       command.createdAt = new Date().toJSON()

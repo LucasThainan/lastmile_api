@@ -3,7 +3,7 @@ GET http://localhost:3000/usuarios
 ?type=2
 &limit=10
 &offset=0
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3Mjk0NDEyNTgsImV4cCI6MTcyOTQ0NDg1OH0.pabIg7YDa-kAMmtqIcj31S29mCuWXtHQNG3VHUiCXcY
 
 ### get usuario
 GET http://localhost:3000/usuarios/7cc120dc-271b-4d2c-bb0e-e9f3aeab72d3
@@ -42,9 +42,9 @@ Content-Type: application/json
 }
 
 ### update usuario
-PATCH http://localhost:3000/usuarios/7cc120dc-271b-4d2c-bb0e-e9f3aeab72d3
+PATCH http://localhost:3000/usuarios/2729a9df-b860-4602-a3d5-98ba0acfb14c
 Content-Type: application/json
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3Mjk0NDEyNTgsImV4cCI6MTcyOTQ0NDg1OH0.pabIg7YDa-kAMmtqIcj31S29mCuWXtHQNG3VHUiCXcY
 
 {
   "phone": "77912348765"

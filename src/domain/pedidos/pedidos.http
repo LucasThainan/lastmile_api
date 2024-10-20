@@ -1,7 +1,8 @@
 ### get pedidos
 GET http://localhost:3000/pedidos
-?cod_entregador=25dc48b9-9e76-413c-a538-830b8651330c
-Authorization: Bearer <token>
+?cod_entregador=5f249a45-e1a2-4e52-aba3-62b21eaca02a
+&limit=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3Mjk0NDU4NzYsImV4cCI6MTcyOTQ0OTQ3Nn0.wSf-dTcZxq2IYRqXWj8eKSdPOTesnIXrtfNWq7aID3U
 
 ### get pedido
 GET http://localhost:3000/pedidos/4de10bfb-11b9-4905-93a1-b9d38d9f6739
@@ -10,7 +11,7 @@ Authorization: Bearer <token>
 ### create pedido
 POST http://localhost:3000/pedidos
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3MjkzODAzMzQsImV4cCI6MTcyOTM4MDM5NH0.3SiSPQ1_hIkDBHYFpryzn86IvyPZ_oVzXh9uDFRsv-E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoiMjcyOWE5ZGYtYjg2MC00NjAyLWEzZDUtOThiYTBhY2ZiMTRjIiwiZW1haWwiOiJqYXNvbi5tb21vYUBtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3Mjk0NDU0MTUsImV4cCI6MTcyOTQ0OTAxNX0.ryoQohJvc3opdNd4AoaSSKNMMJCJ7HoVGO-NRaGnsss
 
 {
   "name": "Big Macs",

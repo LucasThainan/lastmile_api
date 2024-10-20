@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, NotFoundException, Query, UseGuards } from '@nestjs/common'
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { plainToClass } from 'class-transformer'
 import { GetPedidoQuery } from './queries/get-pedido/get-pedido.query'
@@ -11,6 +12,8 @@ import { AssignEntregadorCommand } from './commands/assign-entregador/assign-ent
 import { AssignEntregadorDto } from './commands/assign-entregador/assign-entregador.dto'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 
+@ApiBearerAuth()
+@ApiTags('pedidos')
 @Controller('pedidos')
 export class PedidosController {
   constructor(
@@ -29,6 +32,10 @@ export class PedidosController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'offset', required: false, type: Number })
+  @ApiQuery({ name: 'cod_user', required: false, type: String })
+  @ApiQuery({ name: 'cod_entregador', required: false, type: String })
   async findAll(@Query() params: string) {
     const query = plainToClass(GetPedidosQuery, params)
     return await this.queryBus.execute(query)
