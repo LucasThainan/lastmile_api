@@ -41,9 +41,7 @@ export class UsuariosController {
   @Post()
   async create(@Body() createUsuarioDto: CreateUsuarioDto) {
     const command = plainToClass(CreateUsuarioCommand, createUsuarioDto)
-    const id = await this.commandBus.execute(command)
-    const query = plainToClass(GetUsuarioQuery, { id_usuario: id })
-    return this.queryBus.execute(query)
+    return await this.commandBus.execute(command)
   }
 
   @ApiBearerAuth()

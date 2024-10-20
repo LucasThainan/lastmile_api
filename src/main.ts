@@ -9,6 +9,13 @@ async function bootstrap() {
     transform: true,
     whitelist: true,
   }))
+  app.enableCors({
+    origin: 'http://localhost:4200',
+    methods: 'GET,HEAD,PUT,PATCH,POST',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true
+  })
 
   const swagger_options = new DocumentBuilder()
     .setTitle('API Lastmile')
