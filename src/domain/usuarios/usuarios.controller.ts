@@ -29,9 +29,7 @@ export class UsuariosController {
     return await this.commandBus.execute(command)
   }
 
-  @ApiBearerAuth()
   @Post('refresh-token')
-  @UseGuards(JwtAuthGuard)
   @HttpCode(200)
   async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
     const command = plainToClass(RefreshTokenCommand, refreshTokenDto)
