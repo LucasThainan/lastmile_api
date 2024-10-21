@@ -27,7 +27,8 @@ export class PedidosController {
     const command = plainToClass(CreatePedidoCommand, createPedidoDto)
     const id = await this.commandBus.execute(command)
     const query = plainToClass(GetPedidoQuery, { id_pedido: id })
-    return this.queryBus.execute(query)
+    const pedido = await this.queryBus.execute(query)
+    return { pedido: pedido }
   }
 
   @Get()
@@ -38,7 +39,8 @@ export class PedidosController {
   @ApiQuery({ name: 'cod_entregador', required: false, type: String })
   async findAll(@Query() params: string) {
     const query = plainToClass(GetPedidosQuery, params)
-    return await this.queryBus.execute(query)
+    const pedidos = await this.queryBus.execute(query)
+    return { pedidos: pedidos, count: pedidos.length }
   }
 
   @Get(':id')
@@ -46,10 +48,7 @@ export class PedidosController {
   async findOne(@Param('id') id: string) {
     const query = plainToClass(GetPedidoQuery, { id_pedido: id })
     const pedido = await this.queryBus.execute(query)
-
-    if (!pedido) throw new NotFoundException('Pedido não encontrado')
-
-    return pedido
+    return { pedido: pedido }
   }
 
   @Patch(':id')
@@ -60,7 +59,8 @@ export class PedidosController {
     if (!affectedRows) throw new NotFoundException('Pedido não encontrado')
 
     const query = plainToClass(GetPedidoQuery, { id_pedido: id })
-    return this.queryBus.execute(query)
+    const pedido = await this.queryBus.execute(query)
+    return { pedido: pedido }
   }
 
   @Patch('assign-entregador/:id')
@@ -71,6 +71,7 @@ export class PedidosController {
     if (!affectedRows) throw new NotFoundException('Pedido não encontrado')
 
     const query = plainToClass(GetPedidoQuery, { id_pedido: id })
-    return this.queryBus.execute(query)
+    const pedido = await this.queryBus.execute(query)
+    return { pedido: pedido }
   }
 }

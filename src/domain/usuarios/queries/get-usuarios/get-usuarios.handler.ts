@@ -1,4 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
+import { NotFoundException } from "@nestjs/common"
 import { InjectDataSource } from "@nestjs/typeorm"
 import { DataSource } from "typeorm"
 import { GetUsuariosDto } from "./get-usuarios.dto"
@@ -20,7 +21,7 @@ export class GetUsuariosHandler implements IQueryHandler<GetUsuariosQuery, GetUs
       skip: query.offset
     })
 
-    if (!data.length) return null
+    if (!data.length) throw new NotFoundException('Usuarios não encontrado')
 
     return data
   }

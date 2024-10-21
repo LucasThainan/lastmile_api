@@ -4,6 +4,7 @@ import { DataSource } from "typeorm"
 import { GetPedidosDto } from "./get-pedidos.dto"
 import { GetPedidosQuery } from "./get-pedidos.query"
 import { Pedido } from "src/domain/pedidos/entities/pedido.entity"
+import { NotFoundException } from "@nestjs/common"
 
 @QueryHandler(GetPedidosQuery)
 export class GetPedidosHandler implements IQueryHandler<GetPedidosQuery, GetPedidosDto[] | null> {
@@ -23,7 +24,7 @@ export class GetPedidosHandler implements IQueryHandler<GetPedidosQuery, GetPedi
       skip: query.offset
     })
 
-    if (!data.length) return null
+    if (!data.length) throw new NotFoundException('pedidos não encontrado')
 
     return data
   }

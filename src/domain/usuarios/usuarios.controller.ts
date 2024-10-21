@@ -58,7 +58,8 @@ export class UsuariosController {
   @ApiQuery({ name: 'type', required: false, type: Number, enum: [1, 2] })
   async findAll(@Query() params: string) {
     const query = plainToClass(GetUsuariosQuery, params)
-    return await this.queryBus.execute(query)
+    const usuarios = await this.queryBus.execute(query)
+    return { users: usuarios, count: usuarios.length }
   }
 
   @ApiBearerAuth()
@@ -67,9 +68,7 @@ export class UsuariosController {
   async findOne(@Param('id') id: string) {
     const query = plainToClass(GetUsuarioQuery, { id_usuario: id })
     const usuario = await this.queryBus.execute(query)
-    if (!usuario) throw new NotFoundException('Usuario não encontrado')
-
-    return usuario
+    return { user: usuario }
   }
 
   @ApiBearerAuth()
@@ -81,6 +80,7 @@ export class UsuariosController {
     if (!affectedRows) throw new NotFoundException('Usuario não encontrado')
 
     const query = plainToClass(GetUsuarioQuery, { id_usuario: id })
-    return this.queryBus.execute(query)
+    const usuario = await this.queryBus.execute(query)
+    return { user: usuario }
   }
 }

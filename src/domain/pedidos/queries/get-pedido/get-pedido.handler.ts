@@ -1,4 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
+import { NotFoundException } from "@nestjs/common"
 import { InjectDataSource } from "@nestjs/typeorm"
 import { plainToClass } from "class-transformer"
 import { DataSource } from "typeorm"
@@ -19,7 +20,7 @@ export class GetPedidoHandler implements IQueryHandler<GetPedidoQuery, PedidoDto
       relations: ['usuario', 'entregador']
     })
 
-    if (!data.length) return null
+    if (!data.length) throw new NotFoundException('Pedido não encontrado')
 
     return plainToClass(PedidoDto, data[0])
   }

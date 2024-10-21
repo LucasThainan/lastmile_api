@@ -1,4 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
+import { NotFoundException } from "@nestjs/common"
 import { InjectDataSource } from "@nestjs/typeorm"
 import { plainToClass } from "class-transformer"
 import { DataSource } from "typeorm"
@@ -19,7 +20,7 @@ export class GetUsuarioHandler implements IQueryHandler<GetUsuarioQuery, Usuario
       relations: ['entregador']
     })
 
-    if (!data.length) return null
+    if (!data.length) throw new NotFoundException('Usuario não encontrado')
 
     return plainToClass(UsuarioDto, data[0])
   }
