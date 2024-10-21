@@ -20,7 +20,8 @@ export class GetPedidosHandler implements IQueryHandler<GetPedidosQuery, GetPedi
       },
       relations: ['usuario', 'entregador'],
       take: query.limit,
-      skip: query.offset
+      skip: query.offset,
+      order: { createdAt: 'DESC' }
     })
 
     const total = await this.dataSource.manager.find(Pedido, {
