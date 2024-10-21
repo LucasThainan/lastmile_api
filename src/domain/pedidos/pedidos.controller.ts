@@ -39,8 +39,7 @@ export class PedidosController {
   @ApiQuery({ name: 'cod_entregador', required: false, type: String })
   async findAll(@Query() params: string) {
     const query = plainToClass(GetPedidosQuery, params)
-    const pedidos = await this.queryBus.execute(query)
-    return { pedidos: pedidos, count: pedidos.length }
+    return await this.queryBus.execute(query)
   }
 
   @Get(':id')

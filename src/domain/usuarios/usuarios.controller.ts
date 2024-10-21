@@ -58,8 +58,7 @@ export class UsuariosController {
   @ApiQuery({ name: 'type', required: false, type: Number, enum: [1, 2] })
   async findAll(@Query() params: string) {
     const query = plainToClass(GetUsuariosQuery, params)
-    const usuarios = await this.queryBus.execute(query)
-    return { users: usuarios, count: usuarios.length }
+    return await this.queryBus.execute(query)
   }
 
   @ApiBearerAuth()
