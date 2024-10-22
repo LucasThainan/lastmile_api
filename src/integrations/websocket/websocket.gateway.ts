@@ -9,10 +9,11 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
   @WebSocketServer()
   server: Server
 
-  private connections = {}
+  private connections: any[] = []
 
   handleConnection(client: Socket, ...args: any[]) {
     const new_user = {
+      socket_id: client.id,
       id_usuario: client.handshake.query.id_usuario,
       name: client.handshake.query.name,
       type: client.handshake.query.type,
@@ -20,7 +21,7 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
       lat: null,
       lng: null
     }
-    this.connections = { ...this.connections, [client.id]: new_user }
+    this.connections.push(new_user)
 
     if (new_user.type === '2') {
       client.join('entregadores_room')
@@ -29,7 +30,7 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
   }
 
   handleDisconnect(client: Socket) {
-    let user = this.connections[client.id]
+    let user = this.connections.find((v: any) => v.socket_id == client.id)
 
     if (user.type === '2') {
       this.server.emit('entregador_disconnected', { cod_entregador: user.cod_entregador })
@@ -51,9 +52,9 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
       status_pedido: pedido.status_pedido
     }
 
-    Object.keys(this.connections).forEach(key => {
-      if (this.connections[key].id_usuario === pedido.cod_user) {
-        this.server.to(key).emit('pedido_status_updated', response)
+    this.connections.forEach((value: any) => {
+      if (value.id_usuario === pedido.cod_user) {
+        this.server.to(value.socket_id).emit('pedido_entregador_updated', response)
       }
     })
 
@@ -70,13 +71,13 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
     if (pedido.status_pedido !== 3) {
       this.server.to('entregadores_room').emit('pedido_status_updated', response)
     } else {
-      Object.keys(this.connections).forEach(key => {
-        if (this.connections[key].cod_entregador === pedido.cod_entregador) {
-          this.server.to(key).emit('pedido_status_updated', response)
+      this.connections.forEach((value: any) => {
+        if (value.cod_entregador === pedido.cod_entregador) {
+          this.server.to(value.socket_id).emit('pedido_status_updated', response)
         }
 
-        if (this.connections[key].id_usuario === pedido.cod_user) {
-          this.server.to(key).emit('pedido_status_updated', response)
+        if (value.id_usuario === pedido.cod_user) {
+          this.server.to(value.socket_id).emit('pedido_entregador_updated', response)
         }
       })
     }
@@ -84,21 +85,12 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
 
   @SubscribeMessage('set_location')
   setLocation(@MessageBody() payload: any) {
-    let connection = this.connections[payload.socket_id]
-    if (!connection) return
+    let index = this.connections.findIndex(((v: any) => v.socket_id == payload.socket_id))
+    if (!index) return
 
-    this.connections[payload.socket_id].lat = payload.lat
-    this.connections[payload.socket_id].lng = payload.lng
+    this.connections[index].lat = payload.lat
+    this.connections[index].lng = payload.lng
 
-    const response = {
-      id_usuario: connection.id_usuario,
-      name: connection.name,
-      type: connection.type,
-      cod_entregador: connection.cod_entregador,
-      lat: connection.lat,
-      lng: connection.lng
-    }
-
-    this.server.emit('updated_location', { users: response })
+    this.server.emit('updated_location', { users: this.connections })
   }
 }
