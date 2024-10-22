@@ -6,13 +6,13 @@ import { Pedido } from './entities/pedido.entity'
 import { CommandHandlers } from './commands'
 import { QueryHandlers } from './queries'
 import { EventHandlers } from './events'
-import { PedidosNotifierModule } from 'src/integrations/pedidos-notifier/pedidos-notifier.module'
+import { WebsocketModule } from 'src/integrations/websocket/websocket.module'
 
 @Module({
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([Pedido]),
-    PedidosNotifierModule
+    WebsocketModule
   ],
   controllers: [PedidosController],
   providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],

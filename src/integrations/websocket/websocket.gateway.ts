@@ -5,7 +5,7 @@ import { Pedido } from 'src/domain/pedidos/entities/pedido.entity'
 @WebSocketGateway({
   cors: { origin: '*' }
 })
-export class PedidosNotifierGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server
 
@@ -16,13 +16,15 @@ export class PedidosNotifierGateway implements OnGatewayConnection, OnGatewayDis
       id_usuario: client.handshake.query.id_usuario,
       name: client.handshake.query.name,
       type: client.handshake.query.type,
-      cod_entregador: client.handshake.query.cod_entregador
+      cod_entregador: client.handshake.query.cod_entregador,
+      lat: null,
+      lng: null
     }
     this.connections = { ...this.connections, [client.id]: new_user }
 
     if (new_user.type === '2') {
       client.join('entregadores_room')
-      client.broadcast.emit('entregador_connected', `${new_user.name} conectou`)
+      client.broadcast.emit('entregador_connected', { entregador: new_user })
     }
   }
 
@@ -30,7 +32,7 @@ export class PedidosNotifierGateway implements OnGatewayConnection, OnGatewayDis
     let user = this.connections[client.id]
 
     if (user.type === '2') {
-      this.server.emit('entregador_connected', `${user.name} desconectou`)
+      this.server.emit('entregador_disconnected', { cod_entregador: user.cod_entregador })
     }
 
     delete this.connections[client.id]
@@ -78,5 +80,25 @@ export class PedidosNotifierGateway implements OnGatewayConnection, OnGatewayDis
         }
       })
     }
+  }
+
+  @SubscribeMessage('set_location')
+  setLocation(@MessageBody() payload: any) {
+    let connection = this.connections[payload.socket_id]
+    if (!connection) return
+
+    this.connections[payload.socket_id].lat = payload.lat
+    this.connections[payload.socket_id].lng = payload.lng
+
+    const response = {
+      id_usuario: connection.id_usuario,
+      name: connection.name,
+      type: connection.type,
+      cod_entregador: connection.cod_entregador,
+      lat: connection.lat,
+      lng: connection.lng
+    }
+
+    this.server.emit('updated_location', { users: response })
   }
 }

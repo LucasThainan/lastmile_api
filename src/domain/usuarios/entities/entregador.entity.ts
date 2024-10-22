@@ -10,4 +10,10 @@ export class Entregador {
 
   @Column()
   placa_veiculo: string
+
+  @Column({ nullable: true })
+  lat?: number
+
+  @Column({ nullable: true })
+  lng?: number
 }

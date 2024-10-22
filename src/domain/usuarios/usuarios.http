@@ -55,9 +55,9 @@ POST http://localhost:3000/usuarios
 Content-Type: application/json
 
 {
-  "name": "Entregador Jones",
-  "email": "entregador.jones@mail.com",
-  "password": "jones#123",
+  "name": "Peter Jones",
+  "email": "peter.jones@mail.com",
+  "password": "peter#123",
   "document": "12365471980",
   "phone": "77987654321",
   "type": 2,
