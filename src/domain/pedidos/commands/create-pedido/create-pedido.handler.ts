@@ -1,16 +1,18 @@
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
+import { CommandHandler, EventBus, ICommandHandler } from "@nestjs/cqrs"
+import { NotFoundException } from "@nestjs/common"
 import { InjectDataSource } from "@nestjs/typeorm"
 import { DataSource } from "typeorm"
 import { CreatePedidoCommand } from "./create-pedido.command"
 import { Pedido } from "src/domain/pedidos/entities/pedido.entity"
 import { Usuario } from "src/domain/usuarios/entities/usuario.entity"
-import { NotFoundException } from "@nestjs/common"
+import { PedidoCreatedEvent } from "../../events/pedido-created/pedido-created.event"
 
 @CommandHandler(CreatePedidoCommand)
 export class CreatePedidoHandler implements ICommandHandler<CreatePedidoCommand, string> {
   constructor(
     @InjectDataSource()
-    private readonly dataSource: DataSource
+    private readonly dataSource: DataSource,
+    private readonly eventBus: EventBus
   ) { }
 
   async execute(command: CreatePedidoCommand): Promise<string> {
@@ -28,6 +30,8 @@ export class CreatePedidoHandler implements ICommandHandler<CreatePedidoCommand,
       } catch (error) {
         console.log(error)
       }
+
+      await this.eventBus.publish(new PedidoCreatedEvent(pedido))
 
       return pedido.id_pedido
     })

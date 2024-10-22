@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common'
 import { AuthModule } from './auth/auth.module'
 import { PedidosModule } from './domain/pedidos/pedidos.module'
 import { UsuariosModule } from './domain/usuarios/usuarios.module'
+import { PedidosNotifierModule } from './integrations/pedidos-notifier/pedidos-notifier.module'
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { UsuariosModule } from './domain/usuarios/usuarios.module'
     }),
     UsuariosModule,
     PedidosModule,
-    AuthModule
+    AuthModule,
+    PedidosNotifierModule
   ]
 })
 export class AppModule { }

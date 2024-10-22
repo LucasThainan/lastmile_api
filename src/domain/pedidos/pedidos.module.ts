@@ -6,14 +6,15 @@ import { Pedido } from './entities/pedido.entity'
 import { CommandHandlers } from './commands'
 import { QueryHandlers } from './queries'
 import { EventHandlers } from './events'
-import { DomainEventsDispatcher } from '../shared/domain-events/domain-events-dispatcher'
+import { PedidosNotifierModule } from 'src/integrations/pedidos-notifier/pedidos-notifier.module'
 
 @Module({
   imports: [
     CqrsModule,
-    TypeOrmModule.forFeature([Pedido])
+    TypeOrmModule.forFeature([Pedido]),
+    PedidosNotifierModule
   ],
   controllers: [PedidosController],
-  providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers, DomainEventsDispatcher],
+  providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
 })
 export class PedidosModule { }
