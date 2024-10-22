@@ -86,10 +86,10 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
   @SubscribeMessage('set_location')
   setLocation(@MessageBody() payload: any) {
     let index = this.connections.findIndex(((v: any) => v.socket_id == payload.socket_id))
-    if (!index) return
+    if (index == -1) return
 
-    this.connections[index].lat = payload.lat
-    this.connections[index].lng = payload.lng
+    this.connections[index].lat = String(payload.lat)
+    this.connections[index].lng = String(payload.lng)
 
     this.server.emit('updated_location', { users: this.connections })
   }
